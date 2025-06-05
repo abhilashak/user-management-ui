@@ -1,10 +1,9 @@
 import type { User } from '../types/user';
-
-const API_BASE_URL = 'http://localhost:3000'; // adjust this to match your backend URL
+import { config } from '../config';
 
 export class UserService {
   static async getRandomUser(): Promise<User> {
-    const response = await fetch(`${API_BASE_URL}/user`);
+    const response = await fetch(`${config.api.baseUrl}/user`);
     if (!response.ok) {
       throw new Error('Failed to fetch user');
     }
@@ -12,7 +11,7 @@ export class UserService {
   }
 
   static async createUser(userData: Partial<User>): Promise<User> {
-    const response = await fetch(`${API_BASE_URL}/user`, {
+    const response = await fetch(`${config.api.baseUrl}/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +25,7 @@ export class UserService {
   }
 
   static async getId(): Promise<{ id: string }> {
-    const response = await fetch(`${API_BASE_URL}/id`);
+    const response = await fetch(`${config.api.baseUrl}/id`);
     if (!response.ok) {
       throw new Error('Failed to get ID');
     }

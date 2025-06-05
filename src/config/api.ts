@@ -1,10 +1,10 @@
 import axios from 'axios'
 import type { AxiosResponse, AxiosError } from 'axios'
-
-const BASE_URL = 'http://localhost:3000'
+import { config } from './index'
 
 export const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: config.api.baseUrl,
+  timeout: config.api.timeout,
   headers: {
     'Content-Type': 'application/json'
   }
