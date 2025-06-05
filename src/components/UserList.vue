@@ -6,7 +6,11 @@
       <div class="section random-user-section">
         <div class="section-content">
           <div v-if="randomUser" class="random-user">
-            <h2>Random User</h2>
+            <h2>Random User
+              <button class="refresh-button" @click="loadRandomUser" :disabled="loading">
+                Get Another Random User
+              </button>
+            </h2>
             <div class="user-card">
               <h3>{{ randomUser.name }}</h3>
               <p class="biography">{{ randomUser.biography }}</p>
@@ -15,9 +19,6 @@
                 <small>Created: {{ formatDate(randomUser.created_at) }}</small>
               </div>
             </div>
-            <button class="refresh-button" @click="loadRandomUser" :disabled="loading">
-              Get Another Random User
-            </button>
           </div>
         </div>
       </div>

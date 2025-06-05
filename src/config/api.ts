@@ -1,25 +1,33 @@
-export const API_BASE_URL = 'http://localhost:3000';
+import axios from 'axios'
+import type { AxiosResponse, AxiosError } from 'axios'
 
-export const DEFAULT_HEADERS = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-};
+const BASE_URL = 'http://localhost:3000'
 
-export const api = {
-  async get<T>(endpoint: string): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'GET',
-      headers: DEFAULT_HEADERS
-    });
-    return response.json();
-  },
-
-  async post<T>(endpoint: string, data: any): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'POST',
-      headers: DEFAULT_HEADERS,
-      body: JSON.stringify(data)
-    });
-    return response.json();
+export const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json'
   }
-}; 
+})
+
+// Define error response type
+interface ApiError {
+  message: string
+  status?: number
+  data?: unknown
+}
+
+// Add response interceptor for error handling
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError): Promise<never> => {
+    const errorResponse: ApiError = {
+      message: error.message || 'An unexpected error occurred',
+      status: error.response?.status,
+      data: error.response?.data
+    }
+    return Promise.reject(errorResponse)
+  }
+)
+
+export default api 
