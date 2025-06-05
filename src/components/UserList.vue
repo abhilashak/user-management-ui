@@ -75,10 +75,6 @@ const newUser = ref({
   biography: ''
 });
 
-const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString();
-};
-
 const loadRandomUser = async () => {
   try {
     loading.value = true;
