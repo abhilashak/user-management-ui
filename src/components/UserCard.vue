@@ -4,7 +4,6 @@
     <p class="biography">{{ user.biography }}</p>
     <div class="metadata">
       <small>ID: {{ user.id }}</small>
-      <small>Created: {{ user.created_at ? formatDate(user.created_at) : 'N/A' }}</small>
     </div>
   </div>
 </template>
@@ -12,13 +11,10 @@
 <script setup lang="ts">
 import type { User } from '@/types/user'
 
-const props = defineProps<{
+defineProps<{
   user: User
 }>()
 
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString()
-}
 </script>
 
 <style scoped>
