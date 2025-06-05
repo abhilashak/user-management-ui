@@ -43,22 +43,28 @@ GET /id     - Get a UUID (for future use)
 
 ## Project Setup
 
-1. Install dependencies:
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd user-management-ui
+```
+
+2. Install dependencies:
 ```sh
 npm install
 ```
 
-2. Configure environment (create `.env` file):
+3. Configure environment (create `.env` file):
 ```env
 VITE_API_BASE_URL=http://localhost:3000
 ```
 
-3. Start development server:
+4. Start development server:
 ```sh
 npm run dev
 ```
 
-4. Build for production:
+5. Build for production:
 ```sh
 npm run build
 ```
