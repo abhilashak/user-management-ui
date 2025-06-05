@@ -2,6 +2,22 @@
 
 A modern Vue 3 + TypeScript frontend application for managing user data. This application interfaces with the User API to display random users and create new users with a 50% simulated failure rate for testing error handling.
 
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+1. **Node.js and npm**:
+   - Required version: Node.js 18+ and npm 9+
+   - Installation guides:
+     - All platforms: [Download from official site](https://nodejs.org/)
+     - macOS: `brew install node`
+     - Windows: Use the official installer
+     - Linux: Use package manager or [Node Version Manager](https://github.com/nvm-sh/nvm)
+
+2. **Backend API**:
+   - The User API service should be running (see user_api/README.md)
+   - Default URL: http://localhost:3000
+
 ## Features
 
 ### 1. Random User Display
@@ -31,58 +47,83 @@ A modern Vue 3 + TypeScript frontend application for managing user data. This ap
 - Vue Router - Official router for Vue.js
 - Modern CSS - Using latest CSS features for styling
 
-## API Integration
+## Setup
 
-The application integrates with the following API endpoints:
+⚠️ **Important**: Please check all [Prerequisites](#prerequisites) are installed before proceeding. The application requires:
+- Node.js 18+ and npm 9+
+- Backend API service running
 
-```
-GET /user   - Fetch a random user
-POST /user  - Create a new user (50% failure rate)
-GET /id     - Get a UUID (for future use)
-```
+1. **Install Node.js** (if not already installed):
+   ```bash
+   # Verify Node.js and npm installation:
+   node -v  # Should be 18+
+   npm -v   # Should be 9+
+   ```
 
-## Project Setup
+2. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd user-management-ui
+   ```
 
-1. Clone the repository:
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+4. **Configure environment**:
+   ```bash
+   # Copy example env file
+   cp .env.example .env
+
+   # Edit .env file to match your backend URL
+   # Default configuration:
+   VITE_API_BASE_URL=http://localhost:3000
+   ```
+
+5. **Start development server**:
+   ```bash
+   npm run dev
+   ```
+
+   The application will be available at http://localhost:5173
+
+6. **Build for production** (optional):
+   ```bash
+   npm run build
+   ```
+
+## Development Commands
+
 ```bash
-git clone <repository-url>
-cd user-management-ui
-```
-
-2. Install dependencies:
-```sh
-npm install
-```
-
-3. Configure environment (create `.env` file):
-```env
-VITE_API_BASE_URL=http://localhost:3000
-```
-
-4. Start development server:
-```sh
-npm run dev
-```
-
-5. Build for production:
-```sh
+# Type-check and compile for production
 npm run build
-```
 
-### Type-Check, Compile and Minify for Production
-```sh
-npm run build
-```
-
-### Lint with ESLint
-```sh
+# Lint files
 npm run lint
-```
 
-### Format with Prettier
-```sh
+# Format with Prettier
 npm run format
 ```
+
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **API Connection Issues**:
+   - Ensure the backend API is running
+   - Check VITE_API_BASE_URL in .env
+   - Verify no CORS issues in browser console
+
+2. **Node.js/npm Issues**:
+   - Clear npm cache: `npm cache clean --force`
+   - Delete node_modules: `rm -rf node_modules`
+   - Reinstall dependencies: `npm install`
+
+3. **Build Failures**:
+   - Check Node.js version compatibility
+   - Clear Vite cache: `rm -rf node_modules/.vite`
+   - Update dependencies: `npm update`
 
 ## Development
 
