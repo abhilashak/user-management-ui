@@ -42,10 +42,6 @@ const loadRandomUser = async () => {
   }
 }
 
-const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString()
-}
-
 // Expose loadRandomUser for parent components
 defineExpose({
   loadRandomUser
