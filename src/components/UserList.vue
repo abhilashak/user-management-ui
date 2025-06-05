@@ -16,7 +16,6 @@
               <p class="biography">{{ randomUser.biography }}</p>
               <div class="metadata">
                 <small>ID: {{ randomUser.id }}</small>
-                <small>Created: {{ formatDate(randomUser.created_at) }}</small>
               </div>
             </div>
           </div>
@@ -75,10 +74,6 @@ const newUser = ref({
   name: '',
   biography: ''
 });
-
-const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString();
-};
 
 const loadRandomUser = async () => {
   try {
