@@ -4,22 +4,15 @@ import UserList from '../components/UserList.vue';
 
 <template>
   <main class="home">
-    <h1>User Management</h1>
     <UserList />
   </main>
 </template>
 
 <style scoped>
 .home {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1 {
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 2em;
+  width: 100%;
+  min-height: 100%;
+  background-color: #f8f9fa;
+  padding: 0;
 }
 </style>

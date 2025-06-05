@@ -3,49 +3,57 @@
     <div v-if="loading" class="loading">Loading user...</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
-      <div class="random-user" v-if="randomUser">
-        <h2>Random User</h2>
-        <div class="user-card">
-          <h3>{{ randomUser.name }}</h3>
-          <p class="biography">{{ randomUser.biography }}</p>
-          <div class="metadata">
-            <small>ID: {{ randomUser.id }}</small>
-            <small>Created: {{ randomUser?.created_at }}</small>
+      <div class="section random-user-section">
+        <div class="section-content">
+          <div v-if="randomUser" class="random-user">
+            <h2>Random User</h2>
+            <div class="user-card">
+              <h3>{{ randomUser.name }}</h3>
+              <p class="biography">{{ randomUser.biography }}</p>
+              <div class="metadata">
+                <small>ID: {{ randomUser.id }}</small>
+                <small>Created: {{ formatDate(randomUser.created_at) }}</small>
+              </div>
+            </div>
+            <button class="refresh-button" @click="loadRandomUser" :disabled="loading">
+              Get Another Random User
+            </button>
           </div>
         </div>
-        <button class="refresh-button" @click="loadRandomUser" :disabled="loading">
-          Get Another Random User
-        </button>
       </div>
 
-      <div class="create-user">
-        <h2>Create New User</h2>
-        <form @submit.prevent="handleCreateUser">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input 
-              type="text" 
-              id="name" 
-              v-model="newUser.name" 
-              required
-              :disabled="creating"
-            >
+      <div class="section create-user-section">
+        <div class="section-content">
+          <div class="create-user">
+            <h2>Create New User</h2>
+            <form @submit.prevent="handleCreateUser">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  v-model="newUser.name" 
+                  required
+                  :disabled="creating"
+                >
+              </div>
+              <div class="form-group">
+                <label for="biography">Biography:</label>
+                <textarea 
+                  id="biography" 
+                  v-model="newUser.biography" 
+                  required
+                  :disabled="creating"
+                ></textarea>
+              </div>
+              <button type="submit" :disabled="creating">
+                {{ creating ? 'Creating...' : 'Create User' }}
+              </button>
+              <p v-if="createError" class="error-message">{{ createError }}</p>
+              <p v-if="createSuccess" class="success-message">User created successfully!</p>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="biography">Biography:</label>
-            <textarea 
-              id="biography" 
-              v-model="newUser.biography" 
-              required
-              :disabled="creating"
-            ></textarea>
-          </div>
-          <button type="submit" :disabled="creating">
-            {{ creating ? 'Creating...' : 'Create User' }}
-          </button>
-          <p v-if="createError" class="error-message">{{ createError }}</p>
-          <p v-if="createSuccess" class="success-message">User created successfully!</p>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -115,50 +123,91 @@ onMounted(() => {
 
 <style scoped>
 .user-list {
-  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+}
+
+.section + .section {
+  margin-top: 2rem; /* Spacing between sections */
+}
+
+.section-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.random-user-section {
+  background-color: #f8f9fa;
+}
+
+.create-user-section {
+  background-color: #f8f9fa;
 }
 
 .random-user {
-  margin-bottom: 40px;
+  width: 100%;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .user-card {
-  border: 1px solid #ddd;
+  width: 100%;
+  border: 1px solid #eee;
   border-radius: 8px;
-  padding: 20px;
+  padding: 2rem;
   background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 
 .user-card h3 {
-  margin: 0 0 10px;
+  margin: 0 0 1rem;
   color: #2c3e50;
+  font-size: 1.5rem;
 }
 
 .biography {
   color: #666;
-  line-height: 1.5;
-  margin: 10px 0;
+  line-height: 1.6;
+  margin: 1rem 0;
+  font-size: 1.1rem;
 }
 
 .metadata {
   display: flex;
   justify-content: space-between;
   color: #999;
-  font-size: 0.85em;
-  margin-top: 10px;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
 }
 
 h2 {
   color: #2c3e50;
-  margin: 20px 0;
+  margin: 0 0 1.5rem;
+  font-size: 1.8rem;
 }
 
 .loading, .error {
   text-align: center;
-  padding: 20px;
+  padding: 2rem;
   color: #666;
+  font-size: 1.1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 2rem;
 }
 
 .error {
@@ -166,13 +215,24 @@ h2 {
 }
 
 .refresh-button {
-  margin-top: 20px;
-  padding: 10px 20px;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.2s ease;
+}
+
+.refresh-button:hover {
+  background-color: #45a049;
 }
 
 .refresh-button:disabled {
@@ -181,39 +241,65 @@ h2 {
 }
 
 .create-user {
-  margin-top: 40px;
+  width: 100%;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
   color: #2c3e50;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 8px;
+  padding: 0.8rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
 }
 
 .form-group textarea {
-  height: 100px;
+  height: 150px;
   resize: vertical;
 }
 
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
 button[type="submit"] {
-  padding: 10px 20px;
+  padding: 0.8rem 1.5rem;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 2rem auto 0;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
 button[type="submit"]:disabled {
@@ -223,11 +309,15 @@ button[type="submit"]:disabled {
 
 .error-message {
   color: #dc3545;
-  margin-top: 10px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
 }
 
 .success-message {
   color: #28a745;
-  margin-top: 10px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
 }
 </style> 
