@@ -2,6 +2,11 @@
 
 A modern Vue 3 + TypeScript frontend application for managing user data. This application interfaces with the User API to display random users and create new users with a 50% simulated failure rate for testing error handling.
 
+<img width="1431" alt="user-management-homepage-1" src="https://github.com/user-attachments/assets/2218ecf9-e305-49a7-b6dd-6f2210603c71" />
+
+<img width="1437" alt="user-management-homepage-2" src="https://github.com/user-attachments/assets/34889ec9-e968-4a32-aa37-aaa146eab26a" />
+
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
